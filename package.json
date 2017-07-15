@@ -1,0 +1,16 @@
+{
+  "name": "kuroneko-chan",
+  "version": "0.0.1",
+  "description": "Utility Bot.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyo and Bcubed",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "opusscript": "0.0.3",
+    "sqlite3": "^3.1.8"
+  }
+}
