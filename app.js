@@ -22,6 +22,7 @@ Promise.resolve()
       else if (message.content.startsWith(settings.prefix + 'Roll')) {roll(message);}
       else if (message.content === settings.prefix + 'Shutdown' && message.author.id === '159448888334352384') {stop(message);}
       else if (message.content.startsWith(settings.prefix +'8Ball')) {fortune(message);}
+      else if (message.content === settings.prefix + 'Smug') {smug(message);}
     })
   })
   .catch(err => console.error(err.stack))
@@ -113,5 +114,34 @@ db.close((err) => {
 })
 }
 //Does an 8Ball roll and spits out a random response out of 20
+function smug(message) {
+  console.log(message);
+let db = new sqlite3.Database('./botData.db', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Connected to the in-memory SQlite database.');
+});
+let sql = `SELECT * from smugAnimeGirl`;
+let params = [];
+db.all(sql,params,(err, rows ) => {
+  if (err) {
+    throw err;
+  }
+  let rand = Math.floor(Math.random() * rows.length) + 1;
+  rows.forEach((row) => {
+    if (row.count === rand) {
+    message.channel.sendMessage(row.link);
+  }
+})
+// close the database connection
+db.close((err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Close the database connection.');
+});
+})
+}
 
 client.login(settings.token);
